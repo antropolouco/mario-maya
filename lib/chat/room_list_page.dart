@@ -3,7 +3,6 @@ import 'package:matrix/matrix.dart';
 import 'package:maya/chat/login_page.dart';
 import 'package:maya/chat/room_page.dart';
 import 'package:provider/provider.dart';
-import 'package:installed_apps/installed_apps.dart';
 
 class RoomListPage extends StatefulWidget {
   final ImageProvider backgroundImage;
@@ -42,16 +41,6 @@ class _RoomListPageState extends State<RoomListPage> {
     );
   }
 
-  void _openElement() async {
-    bool? appIsInstalled = await InstalledApps.isAppInstalled('im.vector.app');
-    if (appIsInstalled!) {
-      InstalledApps.startApp('im.vector.app');
-    } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Element is not installed')));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -62,9 +51,6 @@ class _RoomListPageState extends State<RoomListPage> {
           backgroundColor: Color.lerp(widget.mainColor, Colors.black, 0.3),
           foregroundColor: Colors.white,
           actions: [
-            IconButton(
-                icon: Image.asset('assets/images/icons/element.png'),
-                onPressed: _openElement),
             IconButton(icon: const Icon(Icons.logout), onPressed: _logout)
           ]),
       body: Container(

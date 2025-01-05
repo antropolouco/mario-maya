@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:matrix/matrix.dart';
-import 'package:installed_apps/installed_apps.dart';
 
 class RoomPage extends StatefulWidget {
   final ImageProvider backgroundImage;
@@ -48,16 +46,6 @@ class _RoomPageState extends State<RoomPage> {
     _sendController.clear();
   }
 
-  void _openElement() async {
-    bool? appIsInstalled = await InstalledApps.isAppInstalled('im.vector.app');
-    if (appIsInstalled!) {
-      InstalledApps.startApp('im.vector.app');
-    } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Element is not installed'.tr)));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -65,12 +53,7 @@ class _RoomPageState extends State<RoomPage> {
         appBar: AppBar(
             title: Text(widget.room.getLocalizedDisplayname()),
             backgroundColor: Color.lerp(widget.mainColor, Colors.black, 0.3),
-            foregroundColor: Colors.white,
-            actions: [
-              IconButton(
-                  icon: Image.asset('assets/images/icons/element.png'),
-                  onPressed: _openElement)
-            ]),
+            foregroundColor: Colors.white),
         body: Container(
             height: double.infinity,
             width: double.infinity,
